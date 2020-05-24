@@ -26,7 +26,9 @@ with tf.variable_scope('yolov3'):
 saver_to_restore = tf.train.Saver()
 saver_to_save = tf.train.Saver()
 
-with tf.Session() as sess:
+from utils.tflex import Session
+
+with Session() as sess:
     sess.run(tf.global_variables_initializer())
     saver_to_restore.restore(sess, ckpt_path)
     saver_to_save.save(sess, save_dir + '/shrinked')

@@ -101,7 +101,9 @@ y_pred = yolo_model.predict(pred_feature_maps)
 
 saver_to_restore = tf.train.Saver()
 
-with tf.Session() as sess:
+from utils.tflex import Session
+
+with Session() as sess:
     sess.run([tf.global_variables_initializer()])
     saver_to_restore.restore(sess, args.restore_path)
 

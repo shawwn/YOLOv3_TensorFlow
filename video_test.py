@@ -48,7 +48,9 @@ if args.save_video:
     fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     videoWriter = cv2.VideoWriter('video_result.mp4', fourcc, video_fps, (video_width, video_height))
 
-with tf.Session() as sess:
+from utils.tflex import Session
+
+with Session() as sess:
     input_data = tf.placeholder(tf.float32, [1, args.new_size[1], args.new_size[0], 3], name='input_data')
     yolo_model = yolov3(args.num_class, args.anchors)
     with tf.variable_scope('yolov3'):

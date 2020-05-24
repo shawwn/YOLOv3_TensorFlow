@@ -119,7 +119,9 @@ if args.save_optimizer:
     saver_to_save = tf.train.Saver()
     saver_best = tf.train.Saver()
 
-with tf.Session() as sess:
+from utils.tflex import Session
+
+with Session() as sess:
     sess.run([tf.global_variables_initializer(), tf.local_variables_initializer()])
     saver_to_restore.restore(sess, args.restore_path)
     merged = tf.summary.merge_all()

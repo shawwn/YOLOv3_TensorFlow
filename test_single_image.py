@@ -11,6 +11,7 @@ from utils.misc_utils import parse_anchors, read_class_names
 from utils.nms_utils import gpu_nms
 from utils.plot_utils import get_color_table, plot_one_box
 from utils.data_aug import letterbox_resize
+from utils.tflex import Session
 
 from model import yolov3
 
@@ -45,7 +46,7 @@ img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = np.asarray(img, np.float32)
 img = img[np.newaxis, :] / 255.
 
-with tf.Session() as sess:
+with Session() as sess:
     input_data = tf.placeholder(tf.float32, [1, args.new_size[1], args.new_size[0], 3], name='input_data')
     yolo_model = yolov3(args.num_class, args.anchors)
     with tf.variable_scope('yolov3'):
@@ -81,6 +82,6 @@ with tf.Session() as sess:
     for i in range(len(boxes_)):
         x0, y0, x1, y1 = boxes_[i]
         plot_one_box(img_ori, [x0, y0, x1, y1], label=args.classes[labels_[i]] + ', {:.2f}%'.format(scores_[i] * 100), color=color_table[labels_[i]])
-    cv2.imshow('Detection result', img_ori)
+    #cv2.imshow('Detection result', img_ori)
     cv2.imwrite('detection_result.jpg', img_ori)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)

@@ -19,7 +19,9 @@ save_path = './data/darknet_weights/yolov3.ckpt'
 anchors = parse_anchors('./data/yolo_anchors.txt')
 
 model = yolov3(80, anchors)
-with tf.Session() as sess:
+from utils.tflex import Session
+
+with Session() as sess:
     inputs = tf.placeholder(tf.float32, [1, img_size, img_size, 3])
 
     with tf.variable_scope('yolov3'):
