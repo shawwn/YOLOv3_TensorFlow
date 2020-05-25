@@ -11,8 +11,8 @@ for line in f:
     names_dict[line] = cnt
     cnt += 1
 
-voc_07 = '/data/VOCdevkit/VOC2007'
-voc_12 = '/data/VOCdevkit/VOC2012'
+voc_07 = './VOCdevkit/VOC2007'
+voc_12 = './VOCdevkit/VOC2012'
 
 anno_path = [os.path.join(voc_07, 'Annotations'), os.path.join(voc_12, 'Annotations')]
 img_path = [os.path.join(voc_07, 'JPEGImages'), os.path.join(voc_12, 'JPEGImages')]
