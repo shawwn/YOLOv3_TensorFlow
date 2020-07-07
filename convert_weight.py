@@ -12,13 +12,19 @@ import numpy as np
 from model import yolov3
 from utils.misc_utils import parse_anchors, load_weights
 
-num_class = 80
-img_size = 416
-weight_path = './data/darknet_weights/yolov3.weights'
-save_path = './data/darknet_weights/yolov3.ckpt'
-anchors = parse_anchors('./data/yolo_anchors.txt')
+args = sys.argv[1:]
 
-model = yolov3(80, anchors)
+#num_class = 80
+#weight_path = './data/darknet_weights/yolov3.weights'
+#save_path = './data/darknet_weights/yolov3.ckpt'
+weight_path = args[0]
+save_path = args[1]
+num_class = int(args[2])
+img_size = int(args[3])
+anchors = args[4] if len(args) > 4 else './data/yolo_anchors.txt'
+anchors = parse_anchors(anchors)
+
+model = yolov3(num_class, anchors)
 from utils.tflex import Session
 
 with Session() as sess:
