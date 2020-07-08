@@ -8,6 +8,7 @@ import argparse
 import cv2
 import re
 import sys
+import tqdm
 
 from utils.misc_utils import parse_anchors, read_class_names
 from utils.nms_utils import gpu_nms
@@ -73,7 +74,7 @@ with Session() as sess:
     saver = tf.train.Saver()
     saver.restore(sess, args.restore_path)
 
-    for input_image in args.input_images:
+    for input_image in tqdm.tqdm(args.input_images):
       img_ori = cv2.imread(input_image)
       if args.letterbox_resize:
           img, resize_ratio, dw, dh = letterbox_resize(img_ori, args.new_size[0], args.new_size[1])
