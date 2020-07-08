@@ -32,6 +32,8 @@ parser.add_argument("--restore_path", type=str, default="./data/darknet_weights/
                     help="The path of the weights to restore.")
 parser.add_argument("--detect_classes", type=str, default='.*',
                     help="Comma-separated list of label regexps to detect")
+parser.add_argument("--verbose", type=bool,
+                    help="Print all class info to stderr")
 args = parser.parse_args()
 
 args.anchors = parse_anchors(args.anchor_path)
@@ -94,8 +96,11 @@ with Session() as sess:
 
       if len(boxes_) > 0:
         label_names = [args.classes[label] for label in labels_]
-        if any([matches(label_name) for label_name in label_names]):
+        match = any([matches(label_name) for label_name in label_names])
+        if match:
           print(input_image)
+        if match or args.verbose:
+          eprint(input_image)
           eprint("box coords:")
           eprint(boxes_)
           eprint('*' * 30)
