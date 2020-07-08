@@ -89,6 +89,10 @@ with tf.Session() as sess:
             boxes_[:, [0, 2]] *= (width_ori/float(args.new_size[0]))
             boxes_[:, [1, 3]] *= (height_ori/float(args.new_size[1]))
 
+        boxes_ = np.array(boxes_).tolist()
+        scores_ = np.array(scores_).tolist()
+        labels_ = np.array(labels_).tolist()
+
         label_names = [args.classes[label] for label in labels_]
         props = {
             'file': input_image,
@@ -98,9 +102,11 @@ with tf.Session() as sess:
             'labels': label_names
         }
         print(json.dumps(props))
+        sys.stdout.flush()
       except:
         import traceback
-        traceback.print_exc(file=sys.stdout)
+        traceback.print_exc(file=sys.stderr)
+        sys.stderr.flush()
 
     # for i in range(len(boxes_)):
     #     x0, y0, x1, y1 = boxes_[i]
