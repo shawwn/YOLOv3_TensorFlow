@@ -33,7 +33,7 @@ parser.add_argument("--restore_path", type=str, default="./data/darknet_weights/
                     help="The path of the weights to restore.")
 parser.add_argument("--detect_classes", type=str, default='.*',
                     help="Comma-separated list of label regexps to detect")
-parser.add_argument("--verbose", type=bool,
+parser.add_argument("--verbose", type=bool, action='store_true',
                     help="Print all class info to stderr")
 args = parser.parse_args()
 
